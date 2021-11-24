@@ -9,8 +9,18 @@ const DST_PATH = "/home/alexander/Develop/tmp/dst";
 const DST_FILETYPE = "xlsx";
 const LASTINDEX_FILENAME = "LASTINDEX";
 const MAX_LASTINDEX = 4;
-const SAVE_LAST_FILES = 10;
 const CLEANUP_REGEXP = "^\d{4}-\d{2}-\d{2}-";
+
+
+function checkWebAccess() {
+  $cli = getenv("ACCESS_BY_CLI");
+
+  if (!$cli) {
+    print ":P";
+
+    die();
+  }
+}
 
 function checkNeedWork() {
 
@@ -105,16 +115,16 @@ function updateLastIndex(string $path, int $lastIndex = MAX_LASTINDEX): bool {
   return true;
 }
 
-function cleanup(string $dst, string $regexp, int $saveLast) {
+function writeFrontendData(string $path) {
 
 }
 
-
+checkWebAccess();
+//loadConfig();
 checkNeedWork();
 $lastIndex = loadLastIndex(DST_PATH);
 copyFiles(SRC_SS_PATH, SRC_SM_PATH, DST_PATH, $lastIndex);
 updateLastIndex(DST_PATH, $lastIndex);
-cleanup(DST_PATH, CLEANUP_REGEXP, SAVE_LAST_FILES);
-#writeFrontendData(DST_PATH);
+writeFrontendData(DST_PATH);
 
 
