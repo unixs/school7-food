@@ -23,7 +23,22 @@ function checkWebAccess() {
 }
 
 function checkNeedWork() {
+  return null;
+}
 
+function loadConfig() {
+  $config_path = realpath(__DIR__ ."/food.ini");
+  $result = parse_ini_file($config_path, true);
+
+  if ($result === false) {
+    trigger_error("Unable read config file by path [". $config_path ."]", E_USER_ERROR);
+  }
+
+  foreach ($result['main'] as $key =>$value) {
+    define($key, $value);
+  }
+
+  define('SKIP', $result['skip']['periods']);
 }
 
 function getDstFilename(string $suffix): string {
@@ -120,7 +135,7 @@ function writeFrontendData(string $path) {
 }
 
 checkWebAccess();
-//loadConfig();
+loadConfig();
 checkNeedWork();
 $lastIndex = loadLastIndex(DST_PATH);
 copyFiles(SRC_SS_PATH, SRC_SM_PATH, DST_PATH, $lastIndex);
