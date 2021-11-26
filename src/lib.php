@@ -12,7 +12,7 @@ function checkAccess() {
   $cli = getenv("ACCESS_BY_CLI");
 
   if (!$cli) {
-    print ":P";
+    print ":P\n";
 
     die();
   }
@@ -57,7 +57,7 @@ function checkNeedWork(): bool {
 }
 
 function loadConfig() {
-  $config_path = realpath(__DIR__ ."/food.ini");
+  $config_path = realpath("food.ini");
   $result = parse_ini_file($config_path, true);
 
   if ($result === false) {

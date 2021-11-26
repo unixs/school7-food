@@ -1,6 +1,6 @@
 <?php
 
-require_once "./lib.php";
+require_once "lib.php";
 
 date_default_timezone_set(TIMEZONE);
 setlocale(LC_ALL, 'ru_RU.UTF-8');
