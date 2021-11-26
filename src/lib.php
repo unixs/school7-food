@@ -69,6 +69,7 @@ function loadConfig() {
   }
 
   define('SKIP', $result['skip']['periods']);
+  define('WEB', $result['web']);
 }
 
 function getDstFilename(string $suffix): string {
@@ -174,7 +175,12 @@ function prepareFrontendData(array $data): array {
     return $result;
   }, ['ss' => [], 'sm' => []]);
 
-  return array_slice($data, 0, DUMP_LAST * 2); // 10 for ss & 10 for sm
+  $data = array_slice($data, 0, DUMP_LAST * 2); // 10 for ss & 10 for sm
+
+  return [
+    'config' => WEB,
+    'data' => $data
+  ];
 }
 
 function processFrontendData(string $path) {
@@ -220,5 +226,5 @@ function processFrontendData(string $path) {
 }
 
 function dumpFrontendData(array $data) {
-  print json_encode($data, JSON_PRETTY_PRINT);
+  print json_encode($data, JSON_PRETTY_PRINT) . "\n";
 }
